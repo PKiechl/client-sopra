@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "engines": {
-    "node": "10.x"
+    "node": "11.x",
+    "npm": "6.x"
   }
 }
