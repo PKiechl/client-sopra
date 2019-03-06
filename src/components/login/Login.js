@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import User from "../shared/models/User";
-import { withRouter } from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
+import Register from "../../components/register/Register";
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -14,7 +15,6 @@ const FormContainer = styled.div`
   min-height: 300px;
   justify-content: center;
 `;
-
 const Form = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +29,6 @@ const Form = styled.div`
   background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
-
 const InputField = styled.input`
   &::placeholder {
     color: rgba(255, 255, 255, 0.2);
@@ -43,13 +42,11 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
-
 const Label = styled.label`
   color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -66,6 +63,7 @@ const ButtonContainer = styled.div`
  * @Class
  */
 class Login extends React.Component {
+
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -75,10 +73,11 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: null,
+      password: null,
       username: null
     };
   }
+
   /**
    * HTTP POST request is sent to the backend.
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
@@ -91,7 +90,7 @@ class Login extends React.Component {
       },
       body: JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        password: this.state.password
       })
     })
       .then(response => response.json())
@@ -136,6 +135,7 @@ class Login extends React.Component {
       <BaseContainer>
         <FormContainer>
           <Form>
+
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
@@ -143,16 +143,19 @@ class Login extends React.Component {
                 this.handleInputChange("username", e.target.value);
               }}
             />
-            <Label>Name</Label>
+
+            <Label>Password</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("name", e.target.value);
+                this.handleInputChange("password", e.target.value);
+                //this.handleInputChange("name", e.target.value);
               }}
             />
+
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.name}
+                disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
                   this.login();
@@ -161,6 +164,24 @@ class Login extends React.Component {
                 Login
               </Button>
             </ButtonContainer>
+
+            <ButtonContainer>
+              <Button
+                  width="50%"
+                  //onClick={}{() => <Redirect to={`${this.props.base}/dashboard`} />}
+
+                  onClick={() => {
+                    this.register();
+                    }}
+
+                    // TODO: is false, needs to just route. register is the register functionality
+                    //supposed to route to .../register
+
+              >
+                Register
+              </Button>
+            </ButtonContainer>
+
           </Form>
         </FormContainer>
       </BaseContainer>
