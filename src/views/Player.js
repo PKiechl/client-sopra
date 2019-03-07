@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+//************************
+import {Redirect, withRouter, Link} from "react-router-dom";
 
 const Container = styled.div`
   margin: 6px 0;
@@ -10,17 +12,14 @@ const Container = styled.div`
   align-items: center;
   border: 1px solid #ffffff26;
 `;
-
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
 `;
-
-const Name = styled.div`
+const Password = styled.div`
   font-weight: bold;
   color: #06c4ff;
 `;
-
 const Id = styled.div`
   margin-left: auto;
   margin-right: 10px;
@@ -38,12 +37,14 @@ const Id = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-      <Name>
+      <Password>
         {user.password}
-    </Name>
+    </Password>
+      <Link to={"/userProfile"}>
         <UserName>
-        {user.username}
+          {user.username}
         </UserName>
+      </Link>
       <Id>Id: {user.id}</Id>
     </Container>
   );
