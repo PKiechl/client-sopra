@@ -6,8 +6,6 @@ import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
 //************
 import Register from "../../register/Register";
-import { RegisterGuard } from "../routeProtectors/RegisterGuard";
-
 
 
 /**
@@ -49,9 +47,7 @@ class AppRouter extends React.Component {
 							path="/register"
 							exact
 							render={() => (
-								<RegisterGuard>
 									<Register />
-								</RegisterGuard>
 								//not working properly yet
 							)}
 						/>
