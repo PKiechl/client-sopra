@@ -6,6 +6,8 @@ import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
 //************
 import Register from "../../register/Register";
+import { RegisterGuard } from "../routeProtectors/RegisterGuard";
+
 
 
 /**
@@ -18,47 +20,49 @@ import Register from "../../register/Register";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 class AppRouter extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <div>
+	render() {
+		return (
+			<BrowserRouter>
+				<Switch>
+					<div>
 
-            <Route
-              path="/game"
-              render={() => (
-                <GameGuard>
-                  <GameRouter base={"/game"} />
-                </GameGuard>
-              )}
-            />
+						<Route
+							path="/game"
+							render={() => (
+								<GameGuard>
+									<GameRouter base={"/game"} />
+								</GameGuard>
+							)}
+						/>
 
-            <Route
-              path="/login"
-              exact
-              render={() => (
-                <LoginGuard>
-                  <Login />
-                </LoginGuard>
-              )}
-            />
+						<Route
+							path="/login"
+							exact
+							render={() => (
+								<LoginGuard>
+									<Login />
+								</LoginGuard>
+							)}
+						/>
 
-            <Route
-                path="/register"
-                exact
-                render={() => (
-                    <Register/>
-                    // displays correctly, but the page does not work properly yet
-                )}
-            />
+						<Route
+							path="/register"
+							exact
+							render={() => (
+								<RegisterGuard>
+									<Register />
+								</RegisterGuard>
+								//not working properly yet
+							)}
+						/>
 
-            <Route path="/" exact render={() => <Redirect to={"/game"} />} />
+						<Route path="/" exact render={() => <Redirect to={"/game"} />} />
 
-          </div>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+					</div>
+				</Switch>
+			</BrowserRouter>
+		);
+	}
 }
 /*
 * Don't forget to export your component!

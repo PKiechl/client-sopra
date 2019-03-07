@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import User from "../shared/models/User";
-import {Redirect, withRouter} from "react-router-dom";
+import {Redirect, withRouter, Link} from "react-router-dom";
 import { Button } from "../../views/design/Button";
-import Register from "../../components/register/Register";
+
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -138,7 +138,7 @@ class Login extends React.Component {
 
             <Label>Username</Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here../IN LOGIN"
               onChange={e => {
                 this.handleInputChange("username", e.target.value);
               }}
@@ -146,7 +146,7 @@ class Login extends React.Component {
 
             <Label>Password</Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here../IN LOGIN"
               onChange={e => {
                 this.handleInputChange("password", e.target.value);
                 //this.handleInputChange("name", e.target.value);
@@ -166,20 +166,13 @@ class Login extends React.Component {
             </ButtonContainer>
 
             <ButtonContainer>
-              <Button
-                  width="50%"
-                  //onClick={}{() => <Redirect to={`${this.props.base}/dashboard`} />}
-
-                  onClick={() => {
-                    this.register();
-                    }}
-
-                    // TODO: is false, needs to just route. register is the register functionality
-                    //supposed to route to .../register
-
-              >
-                Register
-              </Button>
+              <Link to={"/register"}>
+                <Button
+                  width="200%"
+                >
+                Move to Register
+                </Button>
+              </Link>
             </ButtonContainer>
 
           </Form>
