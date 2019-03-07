@@ -98,6 +98,8 @@ class Login extends React.Component {
 				// checks if the returnet http status is the one we defined for a successful access on the server-side
 				if (response.status === 200) {
 					alert(response.status + "/n correct user data");
+					// combined both .then's into one.
+					// JSON data is mapped to the user
 					const returnedUser = response.json();
 					const user = new User(returnedUser);
 					// store the token into local storage

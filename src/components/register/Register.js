@@ -93,13 +93,18 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 		})
-			.then(response => response.json())
-			.then(returnedUser => {
-				const user = new User(returnedUser);
-				// store the token into the local storage
-				//localStorage.setItem("token", user.token);
-				// user login successfully worked --> navigate to the route /game in the GameRouter
-				this.props.history.push(`/login`);
+			.then(response => {
+				// checks if http 201 is returned, as defined in the server-side PostMapping
+				if (response.status === 201) {
+					alert(response.status + "/n registration successful!");
+					const returnedUser = response.json();
+					const user = new User(returnedUser);
+					// registration successful - > navigate to /login
+					this.props.history.push(`/login`);
+				}
+				else {
+					alert(response.status + "/n unsuccessful registration! /n might need to be differantiated some more")
+				}
 			})
 			.catch(err => {
 				if (err.message.match(/Failed to fetch/)) {
