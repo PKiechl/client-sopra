@@ -165,14 +165,14 @@ class Login extends React.Component {
 							</Button>
 						</ButtonContainer>
 
-						<ButtonContainer>
-							<Link to={"/login"}>
+						<Link to={"/login"}>
+							<ButtonContainer>
 								<Button
-									width="200%">
+									width="50%">
 									Move To Login
 								</Button>
-							</Link>
 						</ButtonContainer>
+						</Link>
 
 					</Form>
 				</FormContainer>
