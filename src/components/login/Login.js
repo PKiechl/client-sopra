@@ -97,13 +97,16 @@ class Login extends React.Component {
 			.then(response => {
 				// checks if the returnet http status is the one we defined for a successful access on the server-side
 				if (response.status === 200) {
-					alert(response.status);
+					alert(response.status + "/n correct user data");
 					const returnedUser = response.json();
 					const user = new User(returnedUser);
 					// store the token into local storage
 					localStorage.setItem("token", user.token);
 					// user login worked -> navigate to route /game in the GameRouter
 					this.props.history.push(`/game`)
+				}
+				else {
+					alert(response.status + "/n something went wong")
 				}
 			})
 			.catch(err => {
