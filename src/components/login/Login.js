@@ -95,20 +95,16 @@ class Login extends React.Component {
 			})
 		})
 			.then(response => {
-
+				// checks if the returnet http status is the one we defined for a successful access on the server-side
 				if (response.status === 200) {
 					alert(response.status);
-					response.json();
+					const returnedUser = response.json();
+					const user = new User(returnedUser);
+					// store the token into local storage
+					localStorage.setItem("token", user.token);
+					// user login worked -> navigate to route /game in the GameRouter
+					this.props.history.push(`/game`)
 				}
-				response.json()
-			})
-
-			.then(returnedUser => {
-				const user = new User(returnedUser);
-				// store the token into the local storage
-				localStorage.setItem("token", user.token);
-				// user login successfully worked --> navigate to the route /game in the GameRouter
-				this.props.history.push(`/game`);
 			})
 			.catch(err => {
 				if (err.message.match(/Failed to fetch/)) {
