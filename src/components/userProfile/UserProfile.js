@@ -6,6 +6,9 @@ import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
+//*******************************
+import PlayerProfile from "../../views/PlayerProfile";
+
 // not sure if all needed
 
 const Container = styled(BaseContainer)`
@@ -74,13 +77,35 @@ class UserProfile extends React.Component {
 				alert("Something went wrong fetching the user: " + err);
 			});
 	}
+ // *******************STORAGE OF SHIT I CAN?T COMMENT OUT***************
+	/* attempt at creating a PlayerProfile
+					<div>
+						{this.state.user.map(user => {
+								return(
+									<PlayerContainer>
+										<PlayerProfile user={user}/>
+									</PlayerContainer>
 
+								)
+							}
+
+						)}
+					</div>
+*/
 
 	// TODO: change the effin color for Linked shite
 	render() {
+		const {match} = this.props;
+		const id = this.props.id;
 		return(
 			<BaseContainer>
 				<Container>
+
+
+
+
+					<p> THESE WERE THEM USERS </p>
+
 					<Link to={"/game/dashboard"}>
 						<ButtonContainer>
 							<Button
