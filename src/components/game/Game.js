@@ -39,6 +39,7 @@ class Game extends React.Component {
 
   componentDidMount() {
     fetch(`${getDomain()}/users`, {
+
       method: "GET",
       headers: {
         "Content-Type": "application/json"

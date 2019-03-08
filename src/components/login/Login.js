@@ -15,6 +15,7 @@ const FormContainer = styled.div`
   min-height: 300px;
   justify-content: center;
 `;
+
 const Form = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,10 +30,12 @@ const Form = styled.div`
   background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
+
 const InputField = styled.input`
   &::placeholder {
     color: rgba(255, 255, 255, 0.2);
   }
+  
   height: 35px;
   padding-left: 15px;
   margin-left: -4px;
@@ -42,11 +45,13 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
+
 const Label = styled.label`
   color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;

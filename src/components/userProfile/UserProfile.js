@@ -22,6 +22,11 @@ const PlayerContainer = styled.li`
   align-items: center;
   justify-content: center;
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
 // not sure if all needed
 
 // TODO: userProfileGuard à la GameGuard with redirect to /Login
@@ -30,19 +35,74 @@ class UserProfile extends React.Component {
 
 	constructor() {
 		super();
+		this.id = 1;
+		//needs to become variable at some point
 		this.state = {
-			stats: null
-			// that a list?
+			user: null
+			// incoming user data should be assigned to this
 		};
 	}
+
+	logout() {
+		localStorage.removeItem("token");
+		this.props.history.push("/login");
+	}
+
+	componentDidMount() {
+		// Premium Pasta
+		fetch(`${getDomain()}/users`+this.id, {
+			//     ?param={this.id} after /users/
+			// needs to modify to /users/ID to only fetch the actually needed user
+			// not sure i actually need to fetch at all
+
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(response => response.json())
+			.then(async user => {
+				// delays continuous execution of an async operation for 0.8 seconds.
+				// This is just a fake async call, so that the spinner can be displayed
+				// feel free to remove it :)
+				await new Promise(resolve => setTimeout(resolve, 800));
+
+				this.setState({ user });
+			})
+			.catch(err => {
+				console.log(err);
+				alert("Something went wrong fetching the user: " + err);
+			});
+	}
+
 
 	// TODO: change the effin color for Linked shite
 	render() {
 		return(
 			<BaseContainer>
-				<Link to={"/game/dashboard"}>
-					ABRAKADABRA
-				</Link>
+				<Container>
+					<Link to={"/game/dashboard"}>
+						<ButtonContainer>
+							<Button
+							width="50%"
+							>
+								Move to Dashboard
+							</Button>
+						</ButtonContainer>
+					</Link>
+
+					<ButtonContainer>
+						<Button
+						width="50%"
+						onClick={ () => {
+							this.logout()
+						}}
+						>
+							Logout
+						</Button>
+					</ButtonContainer>
+
+				</Container>
 			</BaseContainer>
 		)
 	}

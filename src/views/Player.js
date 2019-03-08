@@ -26,6 +26,7 @@ const Id = styled.div`
   font-weight: bold;
 `;
 
+
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
  * Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
@@ -40,7 +41,9 @@ const Player = ({ user }) => {
       <Password>
         {user.password}
     </Password>
-      <Link to={"/userProfile"}>
+      <Link to={'/userProfile/'+user.id}
+        // at least this link appears to be working properly
+        >
         <UserName>
           {user.username}
         </UserName>
