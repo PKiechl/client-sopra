@@ -6,26 +6,34 @@ import styled from "styled-components";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 360px;
+  height: 180px;
   padding: 10px;
   border-radius: 6px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #ffffff26;
+  display: inline;
+  align-items: start;
+  border: 1px solid white;
 `;
+
 const UserName = styled.div`
+  font-weight: bold;
+	color: white;
+  margin-bottom: 20px;
+`;
+
+const Intel = styled.div`
+  font-weight: bold;
+  color: #0dcffc;
+  margin-bottom: 20px;
+
+`;
+
+const Date = styled.div`
   font-weight: lighter;
-  margin-left: 5px;
+  margin-bottom: 20px;
 `;
-const Password = styled.div`
-  font-weight: bold;
-  color: #06c4ff;
-`;
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
-`;
+
+
 
 const PlayerProfile = ({ user }) => {
 	return (
@@ -35,24 +43,23 @@ const PlayerProfile = ({ user }) => {
 				username: {user.username}
 			</UserName>
 
-			<UserName
-			// TODO: might need its own styled component
+			<Intel
 			// Online status
 			>
 				online-status: {user.status}
-			</UserName>
+			</Intel>
 
-			<UserName
+			<Intel
 				// BDay
 				>
 				birthday: {user.birthdayDate}
-			</UserName>
+			</Intel>
 
-			<UserName
+			<Date
 				// CreationDate
 			>
 				creation-date: {user.creationDate}
-			</UserName>
+			</Date>
 
 		</Container>
 	)

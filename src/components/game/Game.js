@@ -70,15 +70,19 @@ class Game extends React.Component {
           <Spinner />
         ) : (
           <div>
+
             <Users>
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.id}>
-                    <Player user={user} />
+                      <Player
+                        user={user}
+                      />
                   </PlayerContainer>
                 );
               })}
             </Users>
+
             <Button
               width="100%"
               onClick={() => {
@@ -87,6 +91,7 @@ class Game extends React.Component {
             >
               Logout
             </Button>
+
           </div>
         )}
       </Container>

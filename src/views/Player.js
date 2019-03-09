@@ -10,11 +10,12 @@ const Container = styled.div`
   border-radius: 6px;
   display: flex;
   align-items: center;
-  border: 1px solid #ffffff26;
+  border: 1px solid white;
 `;
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+  color: white;
 `;
 const Password = styled.div`
   font-weight: bold;
@@ -36,23 +37,18 @@ const Id = styled.div`
  * @FunctionalComponent
  */
 
-
 const Player = ({ user }) => {
   return (
     <Container>
-      <Password>
-        {user.password}
-    </Password>
-      <Link to={'/userProfile/'+user.id}
-        // at least this link appears to be working properly, but i don't think it is a valid sulution,
-        // i need to get props to the /UserProfile, which i can't do via a Link, unless i can read the id
-        // from the URL in /UserProfile/ID
-        >
-        <UserName>
-          {user.username}
-        </UserName>
+      <Link to={"/userProfile/"+user.id}>
+      <UserName>
+        {user.username}
+      </UserName>
       </Link>
-      <Id>Id: {user.id}</Id>
+      <Id>
+        Id: {user.id}
+      </Id>
+
     </Container>
   );
 };
