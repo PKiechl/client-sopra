@@ -35,6 +35,8 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
+
+
 const Player = ({ user }) => {
   return (
     <Container>
@@ -42,7 +44,9 @@ const Player = ({ user }) => {
         {user.password}
     </Password>
       <Link to={'/userProfile/'+user.id}
-        // at least this link appears to be working properly
+        // at least this link appears to be working properly, but i don't think it is a valid sulution,
+        // i need to get props to the /UserProfile, which i can't do via a Link, unless i can read the id
+        // from the URL in /UserProfile/ID
         >
         <UserName>
           {user.username}
@@ -53,4 +57,29 @@ const Player = ({ user }) => {
   );
 };
 
+
+/*
+const Player = ({ user }) => {
+  return (
+    <Container>
+
+      <Password>
+        {user.password}
+      </Password>
+
+        <UserName onClick={() =>{
+          this.props.history.push("/userProfile/"+user.id)
+          // does not work, Player has no state/props
+        }}>
+          {user.username}
+        </UserName>
+
+      <Id>
+        Id: {user.id}
+      </Id>
+
+    </Container>
+  );
+};
+*/
 export default Player;

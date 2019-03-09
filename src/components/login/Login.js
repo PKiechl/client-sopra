@@ -100,7 +100,7 @@ class Login extends React.Component {
 			})
 		})
 			.then(response => {
-				// checks if the returnet http status is the one we defined for a successful access on the server-side
+				// checks if the returned http status is the one i defined for a successful access on the server-side
 				if (response.status === 200) {
 					alert(response.status + "/n correct user data");
 					// combined both .then's into one.
