@@ -30,8 +30,49 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+const FormContainer = styled.div`
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  justify-content: center;
+`;
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 5px;
+  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
+  transition: opacity 0.5s ease, transform 0.5s ease;
+`;
+const InputField = styled.input`
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
+  height: 35px;
+  padding-left: 15px;
+  margin-left: -4px;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+`;
+const Label = styled.label`
+  color: white;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+`;
 
-// Pasta from UserProfile done
+// TODO: remove unneeded in the end
+
 
 class EditProfile extends React.Component {
 
@@ -59,21 +100,41 @@ class EditProfile extends React.Component {
 	render() {
 		return(
 
-			<Container>
-				<h3>OHAI</h3>
-				<h3>{this.state.user.id}</h3>
-				<ButtonContainer>
-					<Button
-						width="25%"
-						onClick={() => {
-							// redo this to return to user-profile, needs state information tho
-							this.props.history.push(`/Game/dashboard`)
-						}}
-					>
-						Cancel
-					</Button>
-				</ButtonContainer>
-			</Container>
+			<BaseContainer>
+				<FormContainer>
+					<Form>
+
+						<Label>Edit Username</Label>
+						<InputField
+							placeholder="Enter new username.."
+							onChange={e => {
+								this.handleInputChange("username", e.target.value);
+							}}
+						/>
+
+						<Label>Edit Birthday</Label>
+						<InputField
+							placeholder="Enter new birthday.."
+							onChange={e => {
+								this.handleInputChange("birthdayDate", e.target.value);
+							}}
+						/>
+
+						<ButtonContainer>
+							<Button
+								width="50%"
+								onClick={() => {
+									// redo this to return to user-profile, needs state information tho
+									this.props.history.push(`/Game/dashboard`)
+								}}
+							>
+								Cancel
+							</Button>
+						</ButtonContainer>
+
+					</Form>
+				</FormContainer>
+			</BaseContainer>
 
 			)
 	};
