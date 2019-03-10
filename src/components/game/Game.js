@@ -4,7 +4,7 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
-import { Button } from "../../views/design/Button";
+import { Button, invisButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 
 const Container = styled(BaseContainer)`
@@ -22,6 +22,8 @@ const PlayerContainer = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 20px;
+
 `;
 
 class Game extends React.Component {
@@ -75,9 +77,27 @@ class Game extends React.Component {
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.id}>
+                    <invisButton
+                      // with this Button the entire player container is a button, but i don't see
+                      // how i could rectify that without having to place the button in the Player.js
+                      // where the necessary state, props, history and such are not available
+                      
+                    onClick = {() =>{
+                      let directory = "/UserProfile/"+user.id;
+                      this.props.history.push({
+                        pathname: directory,
+                        state:{user}
+                        // pushes the state information about this particular user to
+                        // the given directory, such that is available there as well.
+
+                        // depending on how the user is identified when editing his profile,
+                        // this might need to get expanded
+                      })
+                    }}>
                       <Player
                         user={user}
                       />
+                    </invisButton>
                   </PlayerContainer>
                 );
               })}

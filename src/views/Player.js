@@ -38,19 +38,19 @@ const Id = styled.div`
  */
 
 const Player = ({ user }) => {
-  return (
-    <Container>
-      <Link to={"/userProfile/"+user.id}>
-      <UserName>
-        {user.username}
-      </UserName>
-      </Link>
-      <Id>
-        Id: {user.id}
-      </Id>
+	return (
+		<Container>
+			<Link to={"/userProfile/"+user.id}>
+				<UserName>
+					{user.username}
+				</UserName>
+			</Link>
+			<Id>
+				Id: {user.id}
+			</Id>
 
-    </Container>
-  );
+		</Container>
+	);
 };
 
 

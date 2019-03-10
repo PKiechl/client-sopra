@@ -4,7 +4,7 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
-import { Button } from "../../views/design/Button";
+import { Button, invisButton } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
 //*******************************
 import PlayerProfile from "../../views/PlayerProfile";

@@ -19,3 +19,15 @@ export const Button = styled.button`
   background: rgb(16, 89, 255);
   transition: all 0.3s ease;
 `;
+
+export const invisButton = styled.button`
+
+	// i don't quite understand why this one functions so completely differently than the standard Button
+	// on the /Game/dashboard page, but hey - it works.
+	
+  padding: 6px;
+  width: ${props => props.width || null};
+  height: 35px;
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  transition: all 0.3s ease;
+`;
