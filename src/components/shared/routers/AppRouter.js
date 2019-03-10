@@ -8,6 +8,7 @@ import Login from "../../login/Login";
 import Register from "../../register/Register";
 import UserProfile from "../../userProfile/UserProfile";
 import { ProfileGuard } from "../routeProtectors/ProfileGuard";
+import EditProfile from "../../userProfile/EditProfile";
 
 
 /**
@@ -64,6 +65,14 @@ class AppRouter extends React.Component {
 								>
 									<UserProfile />
 								</ProfileGuard>
+							)}
+						/>
+
+						<Route
+							path="/userProfile/:id/editProfile"
+							exact
+							render={() => (
+								<EditProfile />
 							)}
 						/>
 

@@ -42,7 +42,11 @@ class UserProfile extends React.Component {
 	}
 
 
-// TODO: ProfileGuard
+	logout() {
+		localStorage.removeItem("token");
+		this.props.history.push("/login");
+	}
+
 
 	render() {
 		return(
@@ -64,7 +68,10 @@ class UserProfile extends React.Component {
 						<Button
 							width="25%"
 							onClick={() => {
-								this.props.history.push("/UserProfile/"+this.state.user.id+"/editProfile")
+								let directory = "/UserProfile/"+this.state.user.id+"/editProfile";
+								let user = this.state.user;
+								this.props.history.push({pathname: directory, state: {user}})
+								//this.props.history.push(`/UserProfile/`+this.state.user.id+`/editProfile`)
 							}}
 							//here will be some pushing, deactivate if id does not match
 						>
@@ -100,5 +107,6 @@ class UserProfile extends React.Component {
 	}
 
 }
+
 
 export default withRouter(UserProfile);
