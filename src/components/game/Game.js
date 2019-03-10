@@ -81,7 +81,7 @@ class Game extends React.Component {
                       // with this Button the entire player container is a button, but i don't see
                       // how i could rectify that without having to place the button in the Player.js
                       // where the necessary state, props, history and such are not available
-                      
+
                     onClick = {() =>{
                       let directory = "/UserProfile/"+user.id;
                       this.props.history.push({
