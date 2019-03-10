@@ -7,6 +7,7 @@ import Login from "../../login/Login";
 //************
 import Register from "../../register/Register";
 import UserProfile from "../../userProfile/UserProfile";
+import { ProfileGuard } from "../routeProtectors/ProfileGuard";
 
 
 /**
@@ -58,7 +59,11 @@ class AppRouter extends React.Component {
 							path="/userProfile/:id"
 							exact
 							render={() => (
-								<UserProfile />
+								<ProfileGuard
+								//
+								>
+									<UserProfile />
+								</ProfileGuard>
 							)}
 						/>
 
