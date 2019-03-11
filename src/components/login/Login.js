@@ -85,10 +85,63 @@ class Login extends React.Component {
 	}
 
 
+	login() {
+		// praise be! for future reference: https://flaviocopes.com/javascript-promises/
+		// the three-step promise chaining is gold. 1) check for status, 2) transform response, if needed, 3) handle data as needed
+
+		const status = response => {
+			if (response.status === 200) {
+				return Promise.resolve(response)
+				// expected server response in case of a successful request, resolve Promise
+			}
+			return Promise.reject(new Error(response.statusText))
+			// should the returned status code not match the expectation, the request failed and we hand the Error to
+			// the .catch block to log/alert
+		};
+
+		const json = response => response.json();
+
+		fetch(`${getDomain()}/login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				username: this.state.username,
+				password: this.state.password
+			})
+		})
+			.then(status)
+			// reads returned http status code, immediately to .catch, if not correct response.
+			.then(json)
+			// json-ify the returned data.
+			.then(data=> {
+				this.setState({user: data});
+				localStorage.setItem("token", this.state.user.token);
+				// assigns the most recently logged-in users token to the local storage. this can then be used to verify if the editing
+				// of a userProfile is authorized.
+				alert("set state, storing user token " + this.state.user.token + " to localStorage.");
+				this.props.history.push(`/game`)
+				// pushes to /game (/dashboard)
+			})
+			.catch(err => {
+				if (err.message.match(/Failed to fetch/)) {
+					alert("The server cannot be reached. Did you start it?");
+				} else {
+					alert(`Something went wrong during the login: ${err.message}`);
+				}
+			});
+	}
+
+
+
 	/**
 	 * HTTP POST request is sent to the backend.
 	 * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
 	 */
+
+	// TODO: delete, outdated
+	/*
 	login() {
 		fetch(`${getDomain()}/login`, {
 			method: "POST",
@@ -100,7 +153,7 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 		})
-			/*
+
 			.then(response => {
 				// checks if the returned http status is the one i defined for a successful access on the server-side
 				if (response.status === 200) {
@@ -108,23 +161,17 @@ class Login extends React.Component {
 					// combined both .then's into one.
 					// JSON data is mapped to the user
 
-					//          const user = new User(response.json());
+					const user = new User(response.json());
 					// store the token into local storage, most recent login overwrites token (?)
-					//          localStorage.setItem("token", user.token);
+					localStorage.setItem("token", user.token);
 					// user login worked -> navigate to route /game in the GameRouter
-					//          this.props.history.push(`/game`)
+					this.props.history.push(`/game`)
 				}
 				else {
 					alert(response.status + "/n something went wong")
 				}
 			})
-			*/
-			.then(response => {response.json()})
-			.then(returnedUser => {
-				const user = new User(returnedUser);
-				localStorage.setItem("token", user.token);
-				this.props.history.push(`/game`);
-			})
+
 			.catch(err => {
 				if (err.message.match(/Failed to fetch/)) {
 					alert("The server cannot be reached. Did you start it?");
@@ -133,6 +180,7 @@ class Login extends React.Component {
 				}
 			});
 	}
+	*/
 
 	/**
 	 *  Every time the user enters something in the input field, the state gets updated.
