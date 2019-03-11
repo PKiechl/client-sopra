@@ -59,6 +59,7 @@ class Game extends React.Component {
       .catch(err => {
         console.log(err);
         alert("Something went wrong fetching the users: " + err);
+        // this one tends to pop up when debugging, no idea why.
       });
   }
 
