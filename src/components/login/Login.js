@@ -120,7 +120,10 @@ class Login extends React.Component {
 				localStorage.setItem("token", this.state.user.token);
 				// assigns the most recently logged-in users token to the local storage. this can then be used to verify if the editing
 				// of a userProfile is authorized.
-				alert("set state, storing user token " + this.state.user.token + " to localStorage.");
+
+				alert("Login successful! Welcome " + this.state.user.username + "!");
+				console.log("set state, storing " + this.state.user.username + "'s token '" + this.state.user.token + "' to localStorage.");
+
 				this.props.history.push(`/game`)
 				// pushes to /game (/dashboard)
 			})

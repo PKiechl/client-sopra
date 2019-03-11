@@ -83,8 +83,10 @@ class EditProfile extends React.Component {
 			// reads the updated username
 			birthdayDate: null,
 			// reads the updated birthdayDate
-			user: props.location.state.user
+			user: props.location.state.user,
 			// stores the 'pushed-in' user data
+			message: null
+			// potential error message assigned to this
 		};
 		this.user = props.location.state.user;
 		// perhaps this might work in the render
@@ -100,30 +102,36 @@ class EditProfile extends React.Component {
 
 	getBody() {
 		if (!this.state.username) {
-			alert("only bday");
+			alert("Birthday");
 			// if only birthday altered
 			return JSON.stringify({
 				id: this.state.user.id,
 				username: this.state.user.username,
-				// username is needed, as well as id for the put request, birthdayDate is optional
+				// username is needed, as well as id for the put request, both pulled from pushed in user data
 				birthdayDate: this.state.birthdayDate
 			})
 		}
 		else if (!this.state.birthdayDate) {
-			alert("only uname");
+			alert("Username");
 			// if only username altered
 			return JSON.stringify({
 				id: this.state.user.id,
-				username: this.state.username
+				// id always needed, since non-nullable
+				username: this.state.username,
+				// new username
+				birthdayDate: this.state.user.birthdayDate
+				// (old) birthdayDate from pushed in user data
 			})
 		}
 		else {
-			alert("both be changed");
+			alert("Both");
 			// if both username & birthday altered
 			return JSON.stringify({
 				id: this.state.user.id,
+				// always needed, since non-nullable
 				username: this.state.username,
 				birthdayDate: this.state.birthdayDate
+				// updated username & birthday
 			})
 		}
 	}
@@ -131,9 +139,39 @@ class EditProfile extends React.Component {
 
 	updateState() {
 		alert("reached update state");
+
+		const status = response => {
+			if (response.status === 200) {
+				return Promise.resolve(response);
+			}
+			return Promise.reject(new Error(response.statusText))
+		};
+
+		const json = response => response.json();
+		// json-ify incoming user data
+
+		fetch(`${getDomain()}/users/` + this.state.user.id, {
+			// fetches user data of newly updated user
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(status)
+			.then(json)
+			.then(data => {
+				this.setState({user: data});
+				// overwrite state with updated user data
+				let user = this.state.user;
+				// this seems to be the only way to make this user accessible in the history.push, seems ood
+				this.props.history.push({pathname: `/userProfile/` + this.state.user.id, state: {user} })
+			})
+			.catch(err => {
+				alert(`Failed fetching updated user data: ${err.message}`);
+			})
 	}
 
-
+	/*
 	saveChanges() {
 		// let's try this the ugly way
 		if(!this.state.username) {
@@ -178,33 +216,44 @@ class EditProfile extends React.Component {
 				});
 		}// else
 	} // saveChanges
+	*/
 
-	/*
 	saveChanges() {
-		fetch(`${getDomain()}/users/`+this.state.user.id, {
+
+		const status = response => {
+			// handles the incoming http status, if 204 then proceed, else to .catch
+			if (response.status === 204) {
+				// 204 is the status code the server returns upon successful request
+				return Promise.resolve(response);
+			}
+			return Promise.reject(new Error(response.statusText));
+		};
+
+		const text = response => {
+			this.setState({message: response.text()});
+			// TODO: this does not work as expected yet
+			// in this case, we only expect a response body if an error occurs,
+			// error text assigned to this.state.message.
+		};
+
+		fetch(`${getDomain()}/users/` + this.state.user.id, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: this.getBody()
-			// doing this with conditionals does not appear to be working
 		})
-
-			.then(response => {
-				alert("reached response");
-				if (response.status === 204) {
-					alert(response.status + " user data updated successfully!");
-					this.updateState();
-				}
-				else {
-					alert(response.status + ": user data not updated, username already taken!");
-						// might need to be differentiated some more
-				}
+			.then(status)
+			.then(text)
+			.then(data => {
+				this.updateState();
+			})
+			.catch(err => {
+				// we'll see if this works
+				alert("User data was not updated: " + this.state.message)
 			})
 
-	}
-	*/
-
+	} // saveChanges
 
 
 	render() {
@@ -213,7 +262,7 @@ class EditProfile extends React.Component {
 			<BaseContainer>
 				<FormContainer>
 					<Form>
-						<h3>Edit {this.state.user.username}'s Profile Information</h3>
+						<h3>Edit {this.state.user.username}'s Profile</h3>
 
 						<Label>Edit Username</Label>
 						<InputField
@@ -253,7 +302,8 @@ class EditProfile extends React.Component {
 								width="50%"
 								onClick={() => {
 									// redo this to return to user-profile, needs state information tho
-									this.props.history.push(`/Game/dashboard`)
+									let user = this.state.user;
+									this.props.history.push({pathname: `/userProfile/`+this.state.user.id, state:{user}})
 								}}
 							>
 								Cancel
