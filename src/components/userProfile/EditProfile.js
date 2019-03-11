@@ -97,12 +97,119 @@ class EditProfile extends React.Component {
 	}
 
 
+	getBody() {
+		if (!this.state.username) {
+			alert("only bday");
+			// if only birthday altered
+			return JSON.stringify({
+				id: this.state.user.id,
+				username: this.state.user.username,
+				// username is needed, as well as id for the put request, birthdayDate is optional
+				birthdayDate: this.state.birthdayDate
+			})
+		}
+		else if (!this.state.birthdayDate) {
+			alert("only uname");
+			// if only username altered
+			return JSON.stringify({
+				id: this.state.user.id,
+				username: this.state.username
+			})
+		}
+		else {
+			alert("both be changed");
+			// if both username & birthday altered
+			return JSON.stringify({
+				id: this.state.user.id,
+				username: this.state.username,
+				birthdayDate: this.state.birthdayDate
+			})
+		}
+	}
+
+
+	updateState() {
+		alert("reached update state");
+	}
+
+
+	saveChanges() {
+		// let's try this the ugly way
+		if(!this.state.username) {
+			// only birthday altered
+		}
+		else if(!this.state.birthdayDate) {
+			// only username altered
+		}
+		else {
+			// both altered
+			fetch(`${getDomain()}/users/`+this.state.user.id, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					id: this.state.user.id,
+					username: this.state.username,
+					birthdayDate: this.state.birthdayDate
+					}) // value: stringify
+			})// init : fetch
+				.then(response => {
+					alert("reached response");
+					if (response.status === 204) {
+						alert(response.status + " user data updated successfully!");
+						this.updateState();
+					}
+					else {
+						alert(response.status + ": user data not updated, username already taken!");
+						// might need to be differentiated some more
+					}
+				})
+				.catch(err => {
+					if (err.message.match(/Failed to fetch/)) {
+						alert("The server cannot be reached. Did you start it?");
+					} else {
+						alert(`Something went wrong when updating the user data: ${err.message}`);
+					}
+				});
+		}// else
+	} // saveChanges
+
+	/*
+	saveChanges() {
+		fetch(`${getDomain()}/users/`+this.state.user.id, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: this.getBody()
+			// doing this with conditionals does not appear to be working
+		})
+
+			.then(response => {
+				alert("reached response");
+				if (response.status === 204) {
+					alert(response.status + " user data updated successfully!");
+					this.updateState();
+				}
+				else {
+					alert(response.status + ": user data not updated, username already taken!");
+						// might need to be differentiated some more
+				}
+			})
+
+	}
+	*/
+
+
+
 	render() {
 		return(
 
 			<BaseContainer>
 				<FormContainer>
 					<Form>
+						<h3>Edit {this.state.user.username}'s Profile Information</h3>
 
 						<Label>Edit Username</Label>
 						<InputField
@@ -119,6 +226,20 @@ class EditProfile extends React.Component {
 								this.handleInputChange("birthdayDate", e.target.value);
 							}}
 						/>
+
+						<ButtonContainer>
+							<Button
+								width="50%"
+								disabled={!this.state.username && !this.state.birthdayDate}
+								// can choose to update only one of them
+								onClick={() => {
+									// redo this to return to user-profile, needs state information tho
+									this.saveChanges()
+								}}
+							>
+								Save
+							</Button>
+						</ButtonContainer>
 
 						<ButtonContainer>
 							<Button

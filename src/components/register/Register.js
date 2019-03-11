@@ -96,14 +96,16 @@ class Login extends React.Component {
 			.then(response => {
 				// checks if http 201 is returned, as defined in the server-side PostMapping
 				if (response.status === 201) {
-					alert(response.status + "/n registration successful!");
+					alert(response.status + " registration successful!");
 					const returnedUser = response.json();
 					const user = new User(returnedUser);
+					// not sure the user stuff is actually needed (pretty sure it isn't)
+
 					// registration successful - > navigate to /login
 					this.props.history.push(`/login`);
 				}
 				else {
-					alert(response.status + "/n unsuccessful registration! /n might need to be differantiated some more")
+					alert(response.status + " unsuccessful registration! might need to be differantiated some more")
 				}
 			})
 			.catch(err => {
