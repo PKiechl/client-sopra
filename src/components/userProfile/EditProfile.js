@@ -4,7 +4,7 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
-import { Button, invisButton } from "../../views/design/Button";
+import { Button, InvisButton } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
 //*******************************
 import PlayerProfile from "../../views/PlayerProfile";
@@ -85,8 +85,9 @@ class EditProfile extends React.Component {
 			// reads the updated birthdayDate
 			user: props.location.state.user
 			// stores the 'pushed-in' user data
-		}
-
+		};
+		this.user = props.location.state.user;
+		// perhaps this might work in the render
 	}
 
 
@@ -145,6 +146,9 @@ class EditProfile extends React.Component {
 			// both altered
 			fetch(`${getDomain()}/users/`+this.state.user.id, {
 				method: "PUT",
+				// i keep  getting 'preflight response is not successful'
+				// mode: "no-cors",
+				// not supported for PUT method,
 				headers: {
 					"Content-Type": "application/json"
 				},
@@ -230,10 +234,13 @@ class EditProfile extends React.Component {
 						<ButtonContainer>
 							<Button
 								width="50%"
-								disabled={!this.state.username && !this.state.birthdayDate}
+								disabled={(!this.state.username && !this.state.birthdayDate)
 								// can choose to update only one of them
+								|| !(this.user.token === localStorage.getItem("token")) }
+								// is intended to work such that if the token in the local Storage (which is set in the Login to be
+								// equal to the token of the (most recently) logged-in user is equal to the token of the user whose profile
+								// this is, then it can be edited, since logged-in user = user who owns profile
 								onClick={() => {
-									// redo this to return to user-profile, needs state information tho
 									this.saveChanges()
 								}}
 							>

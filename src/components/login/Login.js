@@ -79,7 +79,8 @@ class Login extends React.Component {
 		super();
 		this.state = {
 			password: null,
-			username: null
+			username: null,
+			user: null
 		};
 	}
 
@@ -99,22 +100,30 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 		})
+			/*
 			.then(response => {
 				// checks if the returned http status is the one i defined for a successful access on the server-side
 				if (response.status === 200) {
 					alert(response.status + "/n correct user data");
 					// combined both .then's into one.
 					// JSON data is mapped to the user
-					const returnedUser = response.json();
-					const user = new User(returnedUser);
-					// store the token into local storage
-					localStorage.setItem("token", user.token);
+
+					//          const user = new User(response.json());
+					// store the token into local storage, most recent login overwrites token (?)
+					//          localStorage.setItem("token", user.token);
 					// user login worked -> navigate to route /game in the GameRouter
-					this.props.history.push(`/game`)
+					//          this.props.history.push(`/game`)
 				}
 				else {
 					alert(response.status + "/n something went wong")
 				}
+			})
+			*/
+			.then(response => {response.json()})
+			.then(returnedUser => {
+				const user = new User(returnedUser);
+				localStorage.setItem("token", user.token);
+				this.props.history.push(`/game`);
 			})
 			.catch(err => {
 				if (err.message.match(/Failed to fetch/)) {

@@ -23,11 +23,9 @@ export const Button = styled.button`
 export const invisButton = styled.button`
 
 	// i don't quite understand why this one functions so completely differently than the standard Button
-	// on the /Game/dashboard page, but hey - it works.
+	// on the /Game/dashboard page, but hey - it works. (no it doesn't needs adjusting)
 	
-  padding: 6px;
-  width: ${props => props.width || null};
-  height: 35px;
+	// when this was named invisButton (minor i) it was working exactly like i wanted it to, perhaps return to that
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   transition: all 0.3s ease;
 `;
