@@ -67,13 +67,14 @@ class UserProfile extends React.Component {
 					<ButtonContainer>
 						<Button
 							width="25%"
+							disabled={localStorage.getItem("token") !== this.state.user.token}
+							// if the currently logged in users token matches the one in the local Storage (which preserves the one
+							// of the most recently logged-in user, then editing is permitted
 							onClick={() => {
 								let directory = "/UserProfile/"+this.state.user.id+"/editProfile";
 								let user = this.state.user;
 								this.props.history.push({pathname: directory, state: {user}})
-								//this.props.history.push(`/UserProfile/`+this.state.user.id+`/editProfile`)
 							}}
-							//here will be some pushing, deactivate if id does not match
 						>
 							Edit Profile
 						</Button>
