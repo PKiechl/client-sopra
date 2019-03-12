@@ -1,14 +1,5 @@
 import { getDomain } from "../helpers/getDomain";
 
-/*
-export const logout = ({props}) => {
-	localStorage.removeItem("token");
-	// this works
-	return props.history.push("/login");
-	// this does not (unsurprisingly so)
-};
-*/
-
 export const logout = ({props}) => {
 
 	const status = response => {
@@ -17,8 +8,6 @@ export const logout = ({props}) => {
 		}
 		return Promise.reject(new Error(response.statusText));
 	};
-
-	//const text = response => response.text();
 
 	let token = localStorage.getItem("token");
 	localStorage.removeItem("token");
@@ -32,13 +21,12 @@ export const logout = ({props}) => {
 		body: token })
 			// only send the token
 			.then(status)
-			//.then(text)
-
-			.then( data => {
-				return props.history.push("/login");
-			})
 
 			.catch(err => {
-				alert("User status was not updated, something went wrong.")
-			})
+				console.log(err);
+				//alert("User status was not updated, something went wrong.")
+			});
+
+	return props.history.push("/login");
+
 };

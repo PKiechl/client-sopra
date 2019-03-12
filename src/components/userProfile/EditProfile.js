@@ -6,21 +6,6 @@ import { Button, InvisButton } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
 //*******************************
 
-
-const Container = styled(BaseContainer)`
-  color: white;
-  text-align: center;
-`;
-const Users = styled.ul`
-  list-style: none;
-  padding-left: 0;
-`;
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -66,6 +51,12 @@ const Label = styled.label`
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
+const Label2 = styled.label`
+  color: white;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+`;
 
 // TODO: remove unneeded in the end
 
@@ -93,6 +84,17 @@ class EditProfile extends React.Component {
 		// Example: if the key is username, this statement is the equivalent to the following one:
 		// this.setState({'username': value});
 		this.setState({ [key]: value });
+	}
+
+
+	validBirthday(str) {
+		const birthdayRegex = /^([0-9]{2}\.[0-9]{2}\.[0-9]{4})$/;
+		// supposedly matches DD.MM.YYYY
+		if(str===null) {
+			return true;
+			// since the user might chose to not edit his birthday
+		}
+		return birthdayRegex.test(str);
 	}
 
 
@@ -205,12 +207,13 @@ class EditProfile extends React.Component {
 
 
 	render() {
+		let birthday = this.state.birthdayDate;
 		return(
 
 			<BaseContainer>
 				<FormContainer>
 					<Form>
-						<h3>Edit {this.state.user.username}'s Profile</h3>
+						<Label2>Edit {this.state.user.username}'s Profile</Label2>
 
 						<Label>Edit Username</Label>
 						<InputField
@@ -220,7 +223,7 @@ class EditProfile extends React.Component {
 							}}
 						/>
 
-						<Label>Edit Birthday</Label>
+						<Label>Edit Birthday (DD.MM.YYYY)</Label>
 						<InputField
 							placeholder="Enter new birthday.."
 							onChange={e => {
@@ -232,11 +235,13 @@ class EditProfile extends React.Component {
 							<Button
 								width="50%"
 								disabled={(!this.state.username && !this.state.birthdayDate)
-								// can choose to update only one of them
-								|| !(this.user.token === localStorage.getItem("token")) }
-								// is intended to work such that if the token in the local Storage (which is set in the Login to be
-								// equal to the token of the (most recently) logged-in user is equal to the token of the user whose profile
-								// this is, then it can be edited, since logged-in user = user who owns profile
+									// can choose to update only one of them
+									|| !(this.user.token === localStorage.getItem("token"))
+									// is intended to work such that if the token in the local Storage (which is set in the Login to be
+									// equal to the token of the (most recently) logged-in user is equal to the token of the user whose profile
+									// this is, then it can be edited, since logged-in user = user who owns profile
+									|| !(this.validBirthday(birthday))
+								}
 								onClick={() => {
 									this.saveChanges()
 								}}
