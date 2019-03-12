@@ -167,52 +167,6 @@ class EditProfile extends React.Component {
 			})
 	}
 
-	/*
-	saveChanges() {
-		// let's try this the ugly way
-		if(!this.state.username) {
-			// only birthday altered
-		}
-		else if(!this.state.birthdayDate) {
-			// only username altered
-		}
-		else {
-			// both altered
-			fetch(`${getDomain()}/users/`+this.state.user.id, {
-				method: "PUT",
-				// i keep  getting 'preflight response is not successful'
-				// mode: "no-cors",
-				// not supported for PUT method,
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					id: this.state.user.id,
-					username: this.state.username,
-					birthdayDate: this.state.birthdayDate
-					}) // value: stringify
-			})// init : fetch
-				.then(response => {
-					alert("reached response");
-					if (response.status === 204) {
-						alert(response.status + " user data updated successfully!");
-						this.updateState();
-					}
-					else {
-						alert(response.status + ": user data not updated, username already taken!");
-						// might need to be differentiated some more
-					}
-				})
-				.catch(err => {
-					if (err.message.match(/Failed to fetch/)) {
-						alert("The server cannot be reached. Did you start it?");
-					} else {
-						alert(`Something went wrong when updating the user data: ${err.message}`);
-					}
-				});
-		}// else
-	} // saveChanges
-	*/
 
 	saveChanges() {
 
