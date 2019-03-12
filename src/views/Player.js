@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { InvisibleButton } from "../views/design/Button"
 //************************
 import {Redirect, withRouter, Link} from "react-router-dom";
 
@@ -37,14 +38,22 @@ const Id = styled.div`
  * @FunctionalComponent
  */
 
-const Player = ({ user }) => {
+const Player = ({ props, user }) => {
 	return (
 		<Container>
-			<Link to={"/userProfile/"+user.id}>
+			<InvisibleButton
+			onClick={() => {
+				let directory = "/UserProfile/"+user.id;
+				props.history.push({
+					pathname: directory,
+					state: {user}
+			}) // push
+			}} // onClick
+			>
 				<UserName>
 					{user.username}
 				</UserName>
-			</Link>
+			</InvisibleButton>
 			<Id>
 				Id: {user.id}
 			</Id>
