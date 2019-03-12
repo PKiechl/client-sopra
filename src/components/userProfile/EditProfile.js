@@ -115,8 +115,6 @@ class EditProfile extends React.Component {
 				// id always needed, since non-nullable
 				username: this.state.username,
 				// new username
-				birthdayDate: this.state.user.birthdayDate
-				// (old) birthdayDate from pushed in user data
 			})
 		}
 		else {
