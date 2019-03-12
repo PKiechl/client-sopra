@@ -6,6 +6,8 @@ import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button, invisButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+//***************************
+import { logout } from "../../helpers/logout";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -34,10 +36,6 @@ class Game extends React.Component {
     };
   }
 
-  logout() {
-    localStorage.removeItem("token");
-    this.props.history.push("/login");
-  }
 
   componentDidMount() {
     fetch(`${getDomain()}/users`, {
@@ -107,7 +105,7 @@ class Game extends React.Component {
             <Button
               width="100%"
               onClick={() => {
-                this.logout();
+                logout(this);
               }}
             >
               Logout

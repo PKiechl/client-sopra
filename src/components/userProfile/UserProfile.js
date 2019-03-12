@@ -1,15 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
-import { Spinner } from "../../views/design/Spinner";
 import { Button, InvisButton } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
 //*******************************
 import PlayerProfile from "../../views/PlayerProfile";
-import User from "../shared/models/User";
-
+import { logout } from "../../helpers/logout";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -31,6 +27,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
+
 class UserProfile extends React.Component {
 
 	constructor(props) {
@@ -40,13 +37,6 @@ class UserProfile extends React.Component {
 			// assigns the user data pushed from Game to this.state.user
 		};
 	}
-
-
-	logout() {
-		localStorage.removeItem("token");
-		this.props.history.push("/login");
-	}
-
 
 	render() {
 		return(
@@ -95,7 +85,8 @@ class UserProfile extends React.Component {
 						<Button
 							width="25%"
 							onClick={() => {
-								this.logout();
+								logout(this);
+								// grants access to this-scope to "external" function
 							}}
 						>
 							Logout

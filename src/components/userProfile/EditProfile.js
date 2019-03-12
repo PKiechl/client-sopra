@@ -2,13 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
-import { Spinner } from "../../views/design/Spinner";
 import { Button, InvisButton } from "../../views/design/Button";
 import { Link, withRouter } from "react-router-dom";
 //*******************************
-import PlayerProfile from "../../views/PlayerProfile";
-import User from "../shared/models/User";
 
 
 const Container = styled(BaseContainer)`
