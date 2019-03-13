@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import User from "../shared/models/User";
 import {Redirect, withRouter, Link} from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
@@ -96,17 +95,13 @@ class Login extends React.Component {
 			.then(response => {
 				// checks if http 201 is returned, as defined in the server-side PostMapping
 				if (response.status === 201) {
-					alert(response.status + " registration successful!");
-
-					//const returnedUser = response.json();
-					//const user = new User(returnedUser);
-					// not sure the user stuff is actually needed (pretty sure it isn't)
+					alert("Registration successful!");
 
 					// registration successful - > navigate to /login
 					this.props.history.push(`/login`);
 				}
 				else {
-					alert(response.status + " unsuccessful registration! This username is already taken!")
+					alert("Unsuccessful registration! This username is already taken!")
 				}
 			})
 			.catch(err => {

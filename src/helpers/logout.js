@@ -4,6 +4,7 @@ export const logout = ({props}) => {
 
 	const status = response => {
 		if (response.status === 204) {
+			alert("Successful logout. Good Bye! (for now ;D)");
 			return Promise.resolve(response);
 		}
 		return Promise.reject(new Error(response.statusText));
@@ -24,7 +25,8 @@ export const logout = ({props}) => {
 
 			.catch(err => {
 				console.log(err);
-				//alert("User status was not updated, something went wrong.")
+				alert("User status was not updated, something went wrong.")
+				// local "logout" still happens though
 			});
 
 	return props.history.push("/login");

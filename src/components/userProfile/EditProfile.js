@@ -72,8 +72,6 @@ class EditProfile extends React.Component {
 			// reads the updated birthdayDate
 			user: props.location.state.user,
 			// stores the 'pushed-in' user data
-			message: null
-			// potential error message assigned to this
 		};
 		this.user = props.location.state.user;
 		// perhaps this might work in the render
@@ -100,7 +98,6 @@ class EditProfile extends React.Component {
 
 	getBody() {
 		if (!this.state.username) {
-			alert("Birthday");
 			// if only birthday altered
 			return JSON.stringify({
 				id: this.state.user.id,
@@ -110,7 +107,6 @@ class EditProfile extends React.Component {
 			})
 		}
 		else if (!this.state.birthdayDate) {
-			alert("Username");
 			// if only username altered
 			return JSON.stringify({
 				id: this.state.user.id,
@@ -120,7 +116,6 @@ class EditProfile extends React.Component {
 			})
 		}
 		else {
-			alert("Both");
 			// if both username & birthday altered
 			return JSON.stringify({
 				id: this.state.user.id,
@@ -134,7 +129,6 @@ class EditProfile extends React.Component {
 
 
 	updateState() {
-		alert("reached update state");
 
 		const status = response => {
 			if (response.status === 200) {
@@ -179,12 +173,6 @@ class EditProfile extends React.Component {
 			return Promise.reject(new Error(response.statusText));
 		};
 
-		const text = response => {
-			this.setState({message: response.text()});
-			// TODO: this does not work as expected yet
-			// in this case, we only expect a response body if an error occurs,
-			// error text assigned to this.state.message.
-		};
 
 		fetch(`${getDomain()}/users/` + this.state.user.id, {
 			method: "PUT",
@@ -194,13 +182,13 @@ class EditProfile extends React.Component {
 			body: this.getBody()
 		})
 			.then(status)
-			.then(text)
 			.then(data => {
 				this.updateState();
+				alert("User data successfully updated!");
 			})
 			.catch(err => {
 				// we'll see if this works
-				alert("User data was not updated: " + this.state.message)
+				alert("User data was not updated! That Username is already taken!")
 			})
 
 	} // saveChanges

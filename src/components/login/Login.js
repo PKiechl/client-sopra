@@ -131,59 +131,10 @@ class Login extends React.Component {
 				if (err.message.match(/Failed to fetch/)) {
 					alert("The server cannot be reached. Did you start it?");
 				} else {
-					alert(`Something went wrong during the login: ${err.message}`);
+					alert(`Something went wrong during the login, invalid credentials.`);
 				}
 			});
 	}
-
-
-
-	/**
-	 * HTTP POST request is sent to the backend.
-	 * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
-	 */
-
-	// TODO: delete, outdated
-	/*
-	login() {
-		fetch(`${getDomain()}/login`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				username: this.state.username,
-				password: this.state.password
-			})
-		})
-
-			.then(response => {
-				// checks if the returned http status is the one i defined for a successful access on the server-side
-				if (response.status === 200) {
-					alert(response.status + "/n correct user data");
-					// combined both .then's into one.
-					// JSON data is mapped to the user
-
-					const user = new User(response.json());
-					// store the token into local storage, most recent login overwrites token (?)
-					localStorage.setItem("token", user.token);
-					// user login worked -> navigate to route /game in the GameRouter
-					this.props.history.push(`/game`)
-				}
-				else {
-					alert(response.status + "/n something went wong")
-				}
-			})
-
-			.catch(err => {
-				if (err.message.match(/Failed to fetch/)) {
-					alert("The server cannot be reached. Did you start it?");
-				} else {
-					alert(`Something went wrong during the login: ${err.message}`);
-				}
-			});
-	}
-	*/
 
 	/**
 	 *  Every time the user enters something in the input field, the state gets updated.
