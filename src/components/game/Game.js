@@ -43,7 +43,8 @@ class Game extends React.Component {
 
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Token": localStorage.getItem("token")
       }
     })
       .then(response => response.json())

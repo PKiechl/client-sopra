@@ -144,7 +144,9 @@ class EditProfile extends React.Component {
 			// fetches user data of newly updated user
 			method: "GET",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				"Token": localStorage.getItem("token")
+				// sends the token of the currently logged in user to authenticate the request
 			}
 		})
 			.then(status)
@@ -173,11 +175,11 @@ class EditProfile extends React.Component {
 			return Promise.reject(new Error(response.statusText));
 		};
 
-
 		fetch(`${getDomain()}/users/` + this.state.user.id, {
 			method: "PUT",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				"Token": localStorage.getItem("token")
 			},
 			body: this.getBody()
 		})
@@ -191,7 +193,7 @@ class EditProfile extends React.Component {
 				alert("User data was not updated! That Username is already taken!")
 			})
 
-	} // saveChanges
+	} // saveChanges⁄
 
 
 	render() {

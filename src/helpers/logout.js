@@ -25,7 +25,6 @@ export const logout = ({props}) => {
 
 			.catch(err => {
 				console.log(err);
-				alert("User status was not updated, something went wrong.")
 				// local "logout" still happens though
 			});
 
