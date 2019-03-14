@@ -63,6 +63,38 @@ class Game extends React.Component {
       });
   }
 
+  // GET request to server in GAME compwillmount, in server findbyTOkern, return true if valid token
+  // if yes, do nothing, if no, clear localstorage redirect to login.
+  componentWillMount() {
+
+    const status = response => {
+      if (response.status === 200) {
+        // means a user with that token exists
+        return Promise.resolve(response);
+      }
+      //Promise.reject(new Error(response.statusText));
+      alert("jajajaj");
+      localStorage.clear();
+      this.props.history.push("/login");
+      // clears invalid token
+    };
+
+    const str = response => response.json();
+
+
+    fetch(`${getDomain()}/token`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Token": localStorage.getItem("token")
+      }
+    })
+      .then(status)
+      .then(str)
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   render() {
     return (
