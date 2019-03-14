@@ -58,7 +58,7 @@ class Game extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        alert("Something went wrong fetching the users: " + err);
+        //alert("Something went wrong fetching the users: " + err);
         // this one tends to pop up when debugging, no idea why.
       });
   }
@@ -72,15 +72,11 @@ class Game extends React.Component {
         // means a user with that token exists
         return Promise.resolve(response);
       }
-      //Promise.reject(new Error(response.statusText));
-      alert("jajajaj");
       localStorage.clear();
-      this.props.history.push("/login");
       // clears invalid token
+      this.props.history.push("/login");
     };
-
-    const str = response => response.json();
-
+    
 
     fetch(`${getDomain()}/token`, {
       method: "GET",
@@ -90,7 +86,6 @@ class Game extends React.Component {
       }
     })
       .then(status)
-      .then(str)
       .catch(err => {
         console.log(err)
       })

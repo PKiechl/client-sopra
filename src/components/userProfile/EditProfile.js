@@ -58,8 +58,6 @@ const Label2 = styled.label`
   font-weight: bold;
 `;
 
-// TODO: remove unneeded in the end
-
 
 class EditProfile extends React.Component {
 
