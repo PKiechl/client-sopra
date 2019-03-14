@@ -191,6 +191,7 @@ class EditProfile extends React.Component {
 				alert("User data was not updated! That Username is already taken!")
 			})
 
+		
 	} // saveChanges⁄
 
 
